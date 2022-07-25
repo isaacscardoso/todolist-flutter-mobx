@@ -1,6 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_mobx/flutter_mobx.dart';
-import 'package:mobx_todo_list/counter.dart';
 
 void main() => runApp(const MyApp());
 
@@ -10,61 +8,24 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Flutter Demo',
+      title: 'Lista de Tarefas',
+      debugShowCheckedModeBanner: false,
       theme: ThemeData(
-        primarySwatch: Colors.blue,
+        primaryColor: Colors.deepPurpleAccent,
+        scaffoldBackgroundColor: Colors.deepPurpleAccent,
+        textSelectionTheme:
+            const TextSelectionThemeData(cursorColor: Colors.deepOrangeAccent),
       ),
-      home: MyHomePage(title: 'MobX Counter'),
+      home: const LoginScreen(),
     );
   }
 }
 
-class MyHomePage extends StatelessWidget {
-  MyHomePage({Key? key, required this.title}) : super(key: key);
-
-  final String title;
-  final Counter counter = Counter();
+class LoginScreen extends StatelessWidget {
+  const LoginScreen({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text(title),
-      ),
-      body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            const Text(
-              'You have pushed the button this many times:',
-            ),
-            Observer(builder: (_) {
-              return Text(
-                '${counter.count}',
-                style: Theme.of(context).textTheme.headline4,
-              );
-            }),
-          ],
-        ),
-      ),
-      floatingActionButton: Row(
-        mainAxisSize: MainAxisSize.min,
-        children: [
-          FloatingActionButton(
-            onPressed: counter.increment,
-            tooltip: 'Increment',
-            child: const Icon(Icons.add),
-          ),
-          const SizedBox(
-            width: 6,
-          ),
-          FloatingActionButton(
-            onPressed: counter.decrement,
-            tooltip: 'Decrement',
-            child: const Icon(Icons.remove),
-          ),
-        ],
-      ),
-    );
+    return const Scaffold();
   }
 }
