@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:mobx_todo_list/components/custom_text_field.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({Key? key}) : super(key: key);
@@ -14,19 +15,35 @@ class _LoginScreenState extends State<LoginScreen> {
       child: Scaffold(
         body: Container(
           alignment: Alignment.center,
-          margin: const EdgeInsets.all(32),
+          margin: const EdgeInsets.all(14),
           child: Card(
             shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(16),
+              borderRadius: BorderRadius.circular(12),
             ),
             elevation: 16,
             child: Padding(
               padding: const EdgeInsets.all(16),
               child: Column(
                 mainAxisSize: MainAxisSize.min,
-                children: const <Widget>[
-                  Text('E-Mail'),
-                  Text('Senha'),
+                children: <Widget>[
+                  CustomTextField(
+                    hintText: 'E-mail',
+                    prefix: const Icon(Icons.account_circle),
+                    textInputType: TextInputType.emailAddress,
+                    onChanged: (email) {},
+                    enabled: true,
+                  ),
+                  const SizedBox(
+                    height: 12,
+                  ),
+                  CustomTextField(
+                    hintText: 'Senha',
+                    prefix: const Icon(Icons.lock),
+                    textInputType: TextInputType.visiblePassword,
+                    obscure: true,
+                    onChanged: (password) {},
+                    enabled: true,
+                  ),
                 ],
               ),
             ),
