@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
-import 'package:mobx_todo_list/stores/counter.dart';
+import 'package:mobx_todo_list/counter.dart';
 
 void main() => runApp(const MyApp());
 
@@ -40,7 +40,7 @@ class MyHomePage extends StatelessWidget {
             ),
             Observer(builder: (_) {
               return Text(
-                '${counter.counterValue}',
+                '${counter.count}',
                 style: Theme.of(context).textTheme.headline4,
               );
             }),
