@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:mobx_todo_list/components/login_screen.dart';
 
 void main() => runApp(const MyApp());
 
@@ -18,14 +19,5 @@ class MyApp extends StatelessWidget {
       ),
       home: const LoginScreen(),
     );
-  }
-}
-
-class LoginScreen extends StatelessWidget {
-  const LoginScreen({Key? key}) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return const Scaffold();
   }
 }
