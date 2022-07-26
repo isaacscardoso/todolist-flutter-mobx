@@ -74,6 +74,23 @@ class _ListScreenState extends State<ListScreen> {
                           enabled: true,
                           textInputType: TextInputType.text,
                         ),
+                        const SizedBox(
+                          height: 8,
+                        ),
+                        Expanded(
+                          child: ListView.separated(
+                            itemBuilder: (_, index) {
+                              return ListTile(
+                                title: Text('Item $index'),
+                                onTap: () {},
+                              );
+                            },
+                            separatorBuilder: (_, __) {
+                              return const Divider();
+                            },
+                            itemCount: 10,
+                          ),
+                        ),
                       ],
                     ),
                   ),
