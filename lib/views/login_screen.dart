@@ -50,6 +50,21 @@ class _LoginScreenState extends State<LoginScreen> {
                     onChanged: (password) {},
                     enabled: true,
                   ),
+                  const SizedBox(height: 12),
+                  SizedBox(
+                    width: 132,
+                    height: 44,
+                    child: ElevatedButton(
+                      onPressed: () {},
+                      style: ElevatedButton.styleFrom(
+                        primary: Theme.of(context).primaryColor,
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(32),
+                        ),
+                      ),
+                      child: const Text('Login'),
+                    ),
+                  ),
                 ],
               ),
             ),
