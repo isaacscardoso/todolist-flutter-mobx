@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:mobx_todo_list/views/login_screen.dart';
+import 'package:mobx_todo_list/widgets/custom_icon_button.dart';
+import 'package:mobx_todo_list/widgets/custom_text_field.dart';
 
 class ListScreen extends StatefulWidget {
   const ListScreen({Key? key}) : super(key: key);
@@ -35,6 +37,7 @@ class _ListScreenState extends State<ListScreen> {
                       ),
                     ),
                     IconButton(
+                      iconSize: 32,
                       onPressed: () {
                         Navigator.of(context).pushReplacement(
                           MaterialPageRoute(
@@ -48,6 +51,32 @@ class _ListScreenState extends State<ListScreen> {
                       ),
                     ),
                   ],
+                ),
+              ),
+              Expanded(
+                child: Card(
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(12),
+                  ),
+                  elevation: 16,
+                  child: Padding(
+                    padding: const EdgeInsets.all(16),
+                    child: Column(
+                      children: <Widget>[
+                        CustomTextField(
+                          hintText: 'Tarefa',
+                          onChanged: (todo) {},
+                          suffix: CustomIconButton(
+                            radius: 12,
+                            iconData: Icons.add,
+                            onTap: () {},
+                          ),
+                          enabled: true,
+                          textInputType: TextInputType.text,
+                        ),
+                      ],
+                    ),
+                  ),
                 ),
               ),
             ],
