@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:mobx_todo_list/views/list_screen.dart';
 import 'package:mobx_todo_list/widgets/custom_icon_button.dart';
 import 'package:mobx_todo_list/widgets/custom_text_field.dart';
 
@@ -55,7 +56,13 @@ class _LoginScreenState extends State<LoginScreen> {
                     width: 132,
                     height: 44,
                     child: ElevatedButton(
-                      onPressed: () {},
+                      onPressed: () {
+                        Navigator.of(context).pushReplacement(
+                          MaterialPageRoute(
+                            builder: (_) => const ListScreen(),
+                          ),
+                        );
+                      },
                       style: ElevatedButton.styleFrom(
                         primary: Theme.of(context).primaryColor,
                         shape: RoundedRectangleBorder(
