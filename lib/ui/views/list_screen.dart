@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:mobx_todo_list/views/login_screen.dart';
-import 'package:mobx_todo_list/widgets/custom_icon_button.dart';
-import 'package:mobx_todo_list/widgets/custom_text_field.dart';
+import 'package:mobx_todo_list/ui/views/login_screen.dart';
+import 'package:mobx_todo_list/ui/widgets/custom_icon_button.dart';
+import 'package:mobx_todo_list/ui/widgets/custom_text_field.dart';
 
 class ListScreen extends StatefulWidget {
   const ListScreen({Key? key}) : super(key: key);
