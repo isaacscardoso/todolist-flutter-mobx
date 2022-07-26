@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:mobx_todo_list/components/custom_icon_button.dart';
 import 'package:mobx_todo_list/components/custom_text_field.dart';
 
 class LoginScreen extends StatefulWidget {
@@ -39,6 +40,11 @@ class _LoginScreenState extends State<LoginScreen> {
                   CustomTextField(
                     hintText: 'Senha',
                     prefix: const Icon(Icons.lock),
+                    suffix: CustomIconButton(
+                      radius: 12,
+                      iconData: Icons.visibility,
+                      onTap: () {},
+                    ),
                     textInputType: TextInputType.visiblePassword,
                     obscure: true,
                     onChanged: (password) {},
