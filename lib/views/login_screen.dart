@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:mobx_todo_list/components/custom_icon_button.dart';
-import 'package:mobx_todo_list/components/custom_text_field.dart';
+import 'package:mobx_todo_list/widgets/custom_icon_button.dart';
+import 'package:mobx_todo_list/widgets/custom_text_field.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({Key? key}) : super(key: key);
