@@ -3,6 +3,7 @@ import 'package:mobx_todo_list/stores/login_store.dart';
 import 'package:mobx_todo_list/ui/views/list_screen.dart';
 import 'package:mobx_todo_list/ui/widgets/custom_icon_button.dart';
 import 'package:mobx_todo_list/ui/widgets/custom_text_field.dart';
+import 'package:flutter_mobx/flutter_mobx.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({Key? key}) : super(key: key);
@@ -58,21 +59,27 @@ class _LoginScreenState extends State<LoginScreen> {
                   SizedBox(
                     width: 132,
                     height: 44,
-                    child: ElevatedButton(
-                      onPressed: () {
-                        Navigator.of(context).pushReplacement(
-                          MaterialPageRoute(
-                            builder: (_) => const ListScreen(),
+                    child: Observer(
+                      builder: (_) {
+                        return ElevatedButton(
+                          onPressed: loginStore.formIsValid
+                              ? () {
+                                  Navigator.of(context).pushReplacement(
+                                    MaterialPageRoute(
+                                      builder: (_) => const ListScreen(),
+                                    ),
+                                  );
+                                }
+                              : null,
+                          style: ElevatedButton.styleFrom(
+                            primary: Theme.of(context).primaryColor,
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(24),
+                            ),
                           ),
+                          child: const Text('Login'),
                         );
                       },
-                      style: ElevatedButton.styleFrom(
-                        primary: Theme.of(context).primaryColor,
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(24),
-                        ),
-                      ),
-                      child: const Text('Login'),
                     ),
                   ),
                 ],

@@ -9,18 +9,32 @@ abstract class LoginStoreBase with Store {
   @observable
   String? _password;
 
-  LoginStoreBase() {
-    autorun((_) {
-      print(email);
-      print(password);
-    });
-  }
+  String? get email => _email;
+  String? get password => _password;
 
   @action
   void setEmail(String newEmail) => _email = newEmail;
   @action
   void setPassword(String newPassword) => _password = newPassword;
 
-  String? get email => _email;
-  String? get password => _password;
+  @computed
+  bool get emailIsValid {
+    if (email != null) {
+      return RegExp(
+              r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+")
+          .hasMatch(email!);
+    }
+    return false;
+  }
+
+  @computed
+  bool get passwordIsValid {
+    if (password != null) {
+      return password!.length >= 6;
+    }
+    return false;
+  }
+
+  @computed
+  bool get formIsValid => emailIsValid && passwordIsValid;
 }

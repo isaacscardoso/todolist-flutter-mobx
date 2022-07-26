@@ -9,6 +9,28 @@ part of 'login_store.dart';
 // ignore_for_file: non_constant_identifier_names, unnecessary_brace_in_string_interps, unnecessary_lambdas, prefer_expression_function_bodies, lines_longer_than_80_chars, avoid_as, avoid_annotating_with_dynamic, no_leading_underscores_for_local_identifiers
 
 mixin _$LoginStore on LoginStoreBase, Store {
+  Computed<bool>? _$emailIsValidComputed;
+
+  @override
+  bool get emailIsValid =>
+      (_$emailIsValidComputed ??= Computed<bool>(() => super.emailIsValid,
+              name: 'LoginStoreBase.emailIsValid'))
+          .value;
+  Computed<bool>? _$passwordIsValidComputed;
+
+  @override
+  bool get passwordIsValid =>
+      (_$passwordIsValidComputed ??= Computed<bool>(() => super.passwordIsValid,
+              name: 'LoginStoreBase.passwordIsValid'))
+          .value;
+  Computed<bool>? _$formIsValidComputed;
+
+  @override
+  bool get formIsValid =>
+      (_$formIsValidComputed ??= Computed<bool>(() => super.formIsValid,
+              name: 'LoginStoreBase.formIsValid'))
+          .value;
+
   late final _$_emailAtom =
       Atom(name: 'LoginStoreBase._email', context: context);
 
@@ -69,7 +91,9 @@ mixin _$LoginStore on LoginStoreBase, Store {
   @override
   String toString() {
     return '''
-
+emailIsValid: ${emailIsValid},
+passwordIsValid: ${passwordIsValid},
+formIsValid: ${formIsValid}
     ''';
   }
 }
