@@ -79,6 +79,30 @@ mixin _$LoginStore on LoginStoreBase, Store {
     });
   }
 
+  late final _$_processingLoginAtom =
+      Atom(name: 'LoginStoreBase._processingLogin', context: context);
+
+  @override
+  bool get _processingLogin {
+    _$_processingLoginAtom.reportRead();
+    return super._processingLogin;
+  }
+
+  @override
+  set _processingLogin(bool value) {
+    _$_processingLoginAtom.reportWrite(value, super._processingLogin, () {
+      super._processingLogin = value;
+    });
+  }
+
+  late final _$loginAsyncAction =
+      AsyncAction('LoginStoreBase.login', context: context);
+
+  @override
+  Future<void> login() {
+    return _$loginAsyncAction.run(() => super.login());
+  }
+
   late final _$LoginStoreBaseActionController =
       ActionController(name: 'LoginStoreBase', context: context);
 
@@ -110,6 +134,17 @@ mixin _$LoginStore on LoginStoreBase, Store {
         name: 'LoginStoreBase.toggleVisibility');
     try {
       return super.toggleVisibility();
+    } finally {
+      _$LoginStoreBaseActionController.endAction(_$actionInfo);
+    }
+  }
+
+  @override
+  void toggleProcessingLogin() {
+    final _$actionInfo = _$LoginStoreBaseActionController.startAction(
+        name: 'LoginStoreBase.toggleProcessingLogin');
+    try {
+      return super.toggleProcessingLogin();
     } finally {
       _$LoginStoreBaseActionController.endAction(_$actionInfo);
     }

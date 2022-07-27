@@ -32,15 +32,19 @@ class _LoginScreenState extends State<LoginScreen> {
               child: Column(
                 mainAxisSize: MainAxisSize.min,
                 children: <Widget>[
-                  CustomTextField(
-                    hintText: 'E-mail',
-                    prefix: const Icon(
-                      Icons.account_circle,
-                      size: 20,
-                    ),
-                    textInputType: TextInputType.emailAddress,
-                    onChanged: loginStore.setEmail,
-                    enabled: true,
+                  Observer(
+                    builder: (_) {
+                      return CustomTextField(
+                        hintText: 'E-mail',
+                        prefix: const Icon(
+                          Icons.account_circle,
+                          size: 20,
+                        ),
+                        textInputType: TextInputType.emailAddress,
+                        onChanged: loginStore.setEmail,
+                        enabled: !loginStore.processingLogin,
+                      );
+                    },
                   ),
                   const SizedBox(
                     height: 12,
@@ -64,7 +68,7 @@ class _LoginScreenState extends State<LoginScreen> {
                         textInputType: TextInputType.visiblePassword,
                         obscure: !loginStore.passwordVisible,
                         onChanged: loginStore.setPassword,
-                        enabled: true,
+                        enabled: !loginStore.processingLogin,
                       );
                     },
                   ),
@@ -75,22 +79,20 @@ class _LoginScreenState extends State<LoginScreen> {
                     child: Observer(
                       builder: (_) {
                         return ElevatedButton(
-                          onPressed: loginStore.formIsValid
-                              ? () {
-                                  Navigator.of(context).pushReplacement(
-                                    MaterialPageRoute(
-                                      builder: (_) => const ListScreen(),
-                                    ),
-                                  );
-                                }
-                              : null,
+                          onPressed: loginStore.loginPressed,
                           style: ElevatedButton.styleFrom(
                             primary: Theme.of(context).primaryColor,
                             shape: RoundedRectangleBorder(
                               borderRadius: BorderRadius.circular(24),
                             ),
                           ),
-                          child: const Text('Entrar'),
+                          child: loginStore.processingLogin
+                              ? const CircularProgressIndicator(
+                                  valueColor: AlwaysStoppedAnimation(
+                                    Colors.deepPurpleAccent,
+                                  ),
+                                )
+                              : const Text('Entrar'),
                         );
                       },
                     ),
