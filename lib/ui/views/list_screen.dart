@@ -68,6 +68,7 @@ class _ListScreenState extends State<ListScreen> {
                           onChanged: (todo) {},
                           suffix: CustomIconButton(
                             radius: 12,
+                            iconSize: 20,
                             iconData: Icons.add,
                             onTap: () {},
                           ),

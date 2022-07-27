@@ -34,7 +34,10 @@ class _LoginScreenState extends State<LoginScreen> {
                 children: <Widget>[
                   CustomTextField(
                     hintText: 'E-mail',
-                    prefix: const Icon(Icons.account_circle),
+                    prefix: const Icon(
+                      Icons.account_circle,
+                      size: 20,
+                    ),
                     textInputType: TextInputType.emailAddress,
                     onChanged: loginStore.setEmail,
                     enabled: true,
@@ -42,18 +45,28 @@ class _LoginScreenState extends State<LoginScreen> {
                   const SizedBox(
                     height: 12,
                   ),
-                  CustomTextField(
-                    hintText: 'Senha',
-                    prefix: const Icon(Icons.lock),
-                    suffix: CustomIconButton(
-                      radius: 12,
-                      iconData: Icons.visibility,
-                      onTap: () {},
-                    ),
-                    textInputType: TextInputType.visiblePassword,
-                    obscure: true,
-                    onChanged: loginStore.setPassword,
-                    enabled: true,
+                  Observer(
+                    builder: (_) {
+                      return CustomTextField(
+                        hintText: 'Senha',
+                        prefix: const Icon(
+                          Icons.lock,
+                          size: 20,
+                        ),
+                        suffix: CustomIconButton(
+                          radius: 12,
+                          iconSize: 20,
+                          iconData: loginStore.passwordVisible
+                              ? Icons.visibility
+                              : Icons.visibility_off,
+                          onTap: loginStore.toggleVisibility,
+                        ),
+                        textInputType: TextInputType.visiblePassword,
+                        obscure: !loginStore.passwordVisible,
+                        onChanged: loginStore.setPassword,
+                        enabled: true,
+                      );
+                    },
                   ),
                   const SizedBox(height: 12),
                   SizedBox(
@@ -77,7 +90,7 @@ class _LoginScreenState extends State<LoginScreen> {
                               borderRadius: BorderRadius.circular(24),
                             ),
                           ),
-                          child: const Text('Login'),
+                          child: const Text('Entrar'),
                         );
                       },
                     ),

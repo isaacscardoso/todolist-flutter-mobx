@@ -6,16 +6,25 @@ class LoginStore = LoginStoreBase with _$LoginStore;
 abstract class LoginStoreBase with Store {
   @observable
   String? _email;
+
   @observable
   String? _password;
 
+  @observable
+  bool _passwordVisible = false;
+
   String? get email => _email;
   String? get password => _password;
+  bool get passwordVisible => _passwordVisible;
 
   @action
   void setEmail(String newEmail) => _email = newEmail;
+
   @action
   void setPassword(String newPassword) => _password = newPassword;
+
+  @action
+  void toggleVisibility() => _passwordVisible = !_passwordVisible;
 
   @computed
   bool get emailIsValid {

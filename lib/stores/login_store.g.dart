@@ -63,6 +63,22 @@ mixin _$LoginStore on LoginStoreBase, Store {
     });
   }
 
+  late final _$_passwordVisibleAtom =
+      Atom(name: 'LoginStoreBase._passwordVisible', context: context);
+
+  @override
+  bool get _passwordVisible {
+    _$_passwordVisibleAtom.reportRead();
+    return super._passwordVisible;
+  }
+
+  @override
+  set _passwordVisible(bool value) {
+    _$_passwordVisibleAtom.reportWrite(value, super._passwordVisible, () {
+      super._passwordVisible = value;
+    });
+  }
+
   late final _$LoginStoreBaseActionController =
       ActionController(name: 'LoginStoreBase', context: context);
 
@@ -83,6 +99,17 @@ mixin _$LoginStore on LoginStoreBase, Store {
         name: 'LoginStoreBase.setPassword');
     try {
       return super.setPassword(newPassword);
+    } finally {
+      _$LoginStoreBaseActionController.endAction(_$actionInfo);
+    }
+  }
+
+  @override
+  void toggleVisibility() {
+    final _$actionInfo = _$LoginStoreBaseActionController.startAction(
+        name: 'LoginStoreBase.toggleVisibility');
+    try {
+      return super.toggleVisibility();
     } finally {
       _$LoginStoreBaseActionController.endAction(_$actionInfo);
     }
