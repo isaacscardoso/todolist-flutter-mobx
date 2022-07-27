@@ -30,6 +30,13 @@ mixin _$LoginStore on LoginStoreBase, Store {
       (_$formIsValidComputed ??= Computed<bool>(() => super.formIsValid,
               name: 'LoginStoreBase.formIsValid'))
           .value;
+  Computed<dynamic>? _$loginPressedComputed;
+
+  @override
+  dynamic get loginPressed =>
+      (_$loginPressedComputed ??= Computed<dynamic>(() => super.loginPressed,
+              name: 'LoginStoreBase.loginPressed'))
+          .value;
 
   late final _$_emailAtom =
       Atom(name: 'LoginStoreBase._email', context: context);
@@ -95,6 +102,22 @@ mixin _$LoginStore on LoginStoreBase, Store {
     });
   }
 
+  late final _$_loggedInAtom =
+      Atom(name: 'LoginStoreBase._loggedIn', context: context);
+
+  @override
+  bool get _loggedIn {
+    _$_loggedInAtom.reportRead();
+    return super._loggedIn;
+  }
+
+  @override
+  set _loggedIn(bool value) {
+    _$_loggedInAtom.reportWrite(value, super._loggedIn, () {
+      super._loggedIn = value;
+    });
+  }
+
   late final _$loginAsyncAction =
       AsyncAction('LoginStoreBase.login', context: context);
 
@@ -151,11 +174,23 @@ mixin _$LoginStore on LoginStoreBase, Store {
   }
 
   @override
+  void toggleLoggedIn(bool toggle) {
+    final _$actionInfo = _$LoginStoreBaseActionController.startAction(
+        name: 'LoginStoreBase.toggleLoggedIn');
+    try {
+      return super.toggleLoggedIn(toggle);
+    } finally {
+      _$LoginStoreBaseActionController.endAction(_$actionInfo);
+    }
+  }
+
+  @override
   String toString() {
     return '''
 emailIsValid: ${emailIsValid},
 passwordIsValid: ${passwordIsValid},
-formIsValid: ${formIsValid}
+formIsValid: ${formIsValid},
+loginPressed: ${loginPressed}
     ''';
   }
 }

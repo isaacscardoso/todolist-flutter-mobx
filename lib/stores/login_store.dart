@@ -16,10 +16,14 @@ abstract class LoginStoreBase with Store {
   @observable
   bool _processingLogin = false;
 
+  @observable
+  bool _loggedIn = false;
+
   String? get email => _email;
   String? get password => _password;
   bool get passwordVisible => _passwordVisible;
   bool get processingLogin => _processingLogin;
+  bool get loggedIn => _loggedIn;
 
   @action
   void setEmail(String newEmail) => _email = newEmail;
@@ -34,10 +38,16 @@ abstract class LoginStoreBase with Store {
   void toggleProcessingLogin() => _processingLogin = !_processingLogin;
 
   @action
+  void toggleLoggedIn(bool toggle) => _loggedIn = toggle;
+
+  @action
   Future<void> login() async {
     toggleProcessingLogin();
-    await Future.delayed(const Duration(seconds: 2), () => "2");
+    await Future.delayed(
+      const Duration(milliseconds: 1200),
+    );
     toggleProcessingLogin();
+    toggleLoggedIn(true);
   }
 
   @computed
@@ -62,6 +72,5 @@ abstract class LoginStoreBase with Store {
   bool get formIsValid => emailIsValid && passwordIsValid;
 
   @computed
-  Future<void> Function()? get loginPressed =>
-      (formIsValid && !processingLogin) ? login : null;
+  dynamic get loginPressed => (formIsValid && !processingLogin) ? login : null;
 }

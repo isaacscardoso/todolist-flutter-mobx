@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:mobx/mobx.dart';
 import 'package:mobx_todo_list/stores/login_store.dart';
 import 'package:mobx_todo_list/ui/views/list_screen.dart';
 import 'package:mobx_todo_list/ui/widgets/custom_icon_button.dart';
@@ -14,6 +15,22 @@ class LoginScreen extends StatefulWidget {
 
 class _LoginScreenState extends State<LoginScreen> {
   LoginStore loginStore = LoginStore();
+  late ReactionDisposer disposer;
+
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+
+    disposer = reaction((_) => loginStore.loggedIn, (loggedIn) {
+      if (loggedIn == true) {
+        Navigator.of(context).pushReplacement(
+          MaterialPageRoute(
+            builder: (_) => const ListScreen(),
+          ),
+        );
+      }
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -104,5 +121,11 @@ class _LoginScreenState extends State<LoginScreen> {
         ),
       ),
     );
+  }
+
+  @override
+  void dispose() {
+    disposer();
+    super.dispose();
   }
 }
