@@ -47,4 +47,4 @@ app.*.map.json
 /android/app/release
 
 # MobX
-lib/stores/*.g.dart
+*.g.dart
