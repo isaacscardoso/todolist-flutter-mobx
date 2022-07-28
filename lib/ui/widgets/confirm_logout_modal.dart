@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:mobx_todo_list/ui/views/login_screen.dart';
 
-class ConfirmLogouModal extends StatelessWidget {
-  const ConfirmLogouModal({Key? key}) : super(key: key);
+class ConfirmLogoutModal extends StatelessWidget {
+  const ConfirmLogoutModal({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {

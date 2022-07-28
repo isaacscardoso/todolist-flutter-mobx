@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:mobx_todo_list/stores/list_store.dart';
-import 'package:mobx_todo_list/ui/views/login_screen.dart';
 import 'package:mobx_todo_list/ui/widgets/confirm_logout_modal.dart';
 import 'package:mobx_todo_list/ui/widgets/custom_icon_button.dart';
 import 'package:mobx_todo_list/ui/widgets/custom_text_field.dart';
@@ -45,8 +44,7 @@ class _ListScreenState extends State<ListScreen> {
                       iconSize: 32,
                       onPressed: () => showDialog(
                         context: context,
-                        builder: (BuildContext context) =>
-                            const ConfirmLogouModal(),
+                        builder: (_) => const ConfirmLogoutModal(),
                       ),
                       color: Colors.white,
                       icon: const Icon(
@@ -76,7 +74,7 @@ class _ListScreenState extends State<ListScreen> {
                                       radius: 12,
                                       iconSize: 20,
                                       iconData: Icons.add,
-                                      onTap: () {},
+                                      onTap: listStore.addTodo,
                                     )
                                   : null,
                               enabled: true,
@@ -88,17 +86,21 @@ class _ListScreenState extends State<ListScreen> {
                           height: 8,
                         ),
                         Expanded(
-                          child: ListView.separated(
-                            itemBuilder: (_, index) {
-                              return ListTile(
-                                title: Text('Item $index'),
-                                onTap: () {},
+                          child: Observer(
+                            builder: (_) {
+                              return ListView.separated(
+                                itemCount: listStore.todoList.length,
+                                itemBuilder: (_, index) {
+                                  return ListTile(
+                                    title: Text(listStore.todoList[index]),
+                                    onTap: () {},
+                                  );
+                                },
+                                separatorBuilder: (_, __) {
+                                  return const Divider();
+                                },
                               );
                             },
-                            separatorBuilder: (_, __) {
-                              return const Divider();
-                            },
-                            itemCount: 10,
                           ),
                         ),
                       ],
