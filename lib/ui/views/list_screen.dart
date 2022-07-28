@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_mobx/flutter_mobx.dart';
+import 'package:mobx_todo_list/stores/list_store.dart';
 import 'package:mobx_todo_list/ui/views/login_screen.dart';
+import 'package:mobx_todo_list/ui/widgets/confirm_logout_modal.dart';
 import 'package:mobx_todo_list/ui/widgets/custom_icon_button.dart';
 import 'package:mobx_todo_list/ui/widgets/custom_text_field.dart';
 
@@ -11,6 +14,8 @@ class ListScreen extends StatefulWidget {
 }
 
 class _ListScreenState extends State<ListScreen> {
+  ListStore listStore = ListStore();
+
   @override
   Widget build(BuildContext context) {
     return SafeArea(
@@ -38,13 +43,11 @@ class _ListScreenState extends State<ListScreen> {
                     ),
                     IconButton(
                       iconSize: 32,
-                      onPressed: () {
-                        Navigator.of(context).pushReplacement(
-                          MaterialPageRoute(
-                            builder: (_) => const LoginScreen(),
-                          ),
-                        );
-                      },
+                      onPressed: () => showDialog(
+                        context: context,
+                        builder: (BuildContext context) =>
+                            const ConfirmLogouModal(),
+                      ),
                       color: Colors.white,
                       icon: const Icon(
                         Icons.exit_to_app,
@@ -63,17 +66,23 @@ class _ListScreenState extends State<ListScreen> {
                     padding: const EdgeInsets.all(16),
                     child: Column(
                       children: <Widget>[
-                        CustomTextField(
-                          hintText: 'Tarefa',
-                          onChanged: (todo) {},
-                          suffix: CustomIconButton(
-                            radius: 12,
-                            iconSize: 20,
-                            iconData: Icons.add,
-                            onTap: () {},
-                          ),
-                          enabled: true,
-                          textInputType: TextInputType.text,
+                        Observer(
+                          builder: (_) {
+                            return CustomTextField(
+                              hintText: 'nova tarefa',
+                              onChanged: listStore.setTodoTitle,
+                              suffix: listStore.todoTitleIsValid
+                                  ? CustomIconButton(
+                                      radius: 12,
+                                      iconSize: 20,
+                                      iconData: Icons.add,
+                                      onTap: () {},
+                                    )
+                                  : null,
+                              enabled: true,
+                              textInputType: TextInputType.text,
+                            );
+                          },
                         ),
                         const SizedBox(
                           height: 8,
