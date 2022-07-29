@@ -15,7 +15,7 @@ abstract class ListStoreBase with Store {
   List<TodoTaskStore> get todoList => _todoList;
 
   @action
-  void setTodoTitle(String newTitle) => _todoTitle = newTitle;
+  void setTodoTitle(String? newTitle) => _todoTitle = newTitle;
 
   @action
   void addTodo() => _todoList.add(TodoTaskStore(title: todoTitle!));

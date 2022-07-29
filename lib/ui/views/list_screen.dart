@@ -13,7 +13,8 @@ class ListScreen extends StatefulWidget {
 }
 
 class _ListScreenState extends State<ListScreen> {
-  ListStore listStore = ListStore();
+  final ListStore listStore = ListStore();
+  final TextEditingController textEditingController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -67,6 +68,7 @@ class _ListScreenState extends State<ListScreen> {
                         Observer(
                           builder: (_) {
                             return CustomTextField(
+                              textEditingController: textEditingController,
                               hintText: 'nova tarefa',
                               onChanged: listStore.setTodoTitle,
                               suffix: listStore.todoTitleIsValid
@@ -74,7 +76,11 @@ class _ListScreenState extends State<ListScreen> {
                                       radius: 12,
                                       iconSize: 20,
                                       iconData: Icons.add,
-                                      onTap: listStore.addTodo,
+                                      onTap: () {
+                                        listStore.addTodo();
+                                        textEditingController.clear();
+                                        listStore.setTodoTitle(null);
+                                      },
                                     )
                                   : null,
                               enabled: true,
